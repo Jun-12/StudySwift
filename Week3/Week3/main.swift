@@ -144,3 +144,92 @@ class PersonE {
 var donald: PersonE = PersonE(name: "donald", child: jun)
 donald.pet = leo
 // donald = nil
+
+// Try it Yourself: 에어컨 만들기
+
+// 구조체와 클래스의 차이
+// 1. 초기화
+//  1) memberwise
+/*class PersonF {
+    var name: String
+    var age: Int
+}
+*/
+struct PersonG {
+    var name: String
+    var age: Int
+}
+// -> class는 init 메소드를 통해 기본값을 보장시켜줘야 에러가 나지 않는다.
+//    반면에 struct는 memberwise라는 기능 때문에 에러가 나지 않는다.
+
+//  2) deinit : class에서만 제공되는 메소드. struct과 class가 메모리 위에서 관리되는 방식이 다르기 때문이다.
+
+// 2. 상속 : 상속은 class에서만 가능한 강력한 기능이다.
+
+// 3. mutating
+class PersonH {
+    var name: String
+    var age: Int
+    
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+    
+    func addOneToAge() {
+        self.age += 1
+    }
+}
+
+struct PersonI {
+    var name: String
+    var age: Int
+    
+    mutating func addOneToAge() {
+        self.age += 1
+    }
+}
+// 둘 다 age에 1을 더해주는 메소드이다. 하지만 struct는 프로퍼티를 변경하는 메소드를 생성할 때 func앞에 mutating을 붙여주어야 한다.
+
+// 4. 값 타입(Value Type) vs 참조 타입(Reference Type)
+class CameraA {
+    var color = "Black"
+}
+
+struct CameraB {
+    var color = "Black"
+}
+
+var myCameraA = CameraA()
+var yourCameraA = myCameraA
+
+var myCameraB = CameraB()
+var yourCameraB = myCameraB
+
+
+func printCameraColor() {
+    let str = """
+Camera A (my: \(myCameraA.color), yours: \(yourCameraA.color))
+Camera B (my: \(myCameraB.color), yours: \(yourCameraB.color))
+"""
+    print(str)
+}
+
+printCameraColor()
+
+print("----- myCamera 색을 변경합니다. -----")
+
+myCameraA.color = "White"
+myCameraB.color = "White"
+
+
+printCameraColor()
+/*
+ Camera A (my: Black, yours: Black)
+ Camera B (my: Black, yours: Black)
+ ----- myCamera 색을 변경합니다. -----
+ Camera A (my: White, yours: White)
+ Camera B (my: White, yours: Black)
+ */
+// class는 참조 타입이고 struct는 값 타입(복사)이기 때문.
+

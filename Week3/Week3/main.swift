@@ -146,6 +146,36 @@ donald.pet = leo
 // donald = nil
 
 // Try it Yourself: 에어컨 만들기
+class Airconditioner {
+    var manufacturer: String
+    var ratedVoltage: String
+    var category: String?
+    var version: Int
+    var validity: Int
+    var thisYear: Int
+    
+    convenience init?(manufacturer: String, ratedVoltage: String, category: String, version: Int, validity: Int, thisYear: Int) {
+        if (1...4).contains(version) == false {
+            return nil
+        }
+        self.init(manufacturer: manufacturer, ratedVoltage: ratedVoltage, version: version, validity: validity, thisYear: thisYear)
+        self.category = category
+    }
+    init(manufacturer: String, ratedVoltage: String, version: Int, validity: Int, thisYear: Int) {
+        self.manufacturer = manufacturer
+        self.ratedVoltage = ratedVoltage
+        self.version = version
+        self.validity = validity
+        self.thisYear = thisYear
+    }
+    deinit {
+        if validity < thisYear {
+            print("유효기간이 지났습니다")
+        }
+    }
+}
+
+let myAirconditioner: Airconditioner = Airconditioner(manufacturer: "LG", ratedVoltage: "120V", version: 4, validity: 2025, thisYear: 2022)
 
 // 구조체와 클래스의 차이
 // 1. 초기화
